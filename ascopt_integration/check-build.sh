@@ -13,12 +13,14 @@ fi
 docker run --rm --init --pull=never \
     --user "$(id -u):$(id -g)" \
     --env HOME=/tmp --env PYTHONUNBUFFERED=1 \
-    --mount "type=bind,src=$submission,dst=/workspace/submission" \
-    --workdir /workspace/submission \
+    --mount "type=bind,src=$submission,dst=/input,readonly" \
+    --workdir /tmp \
     --entrypoint /bin/bash "$image" -e -o pipefail -c '
         umask 022
+        cp -a /input /tmp/submission
+        cd /tmp/submission
         source "$ASCEND_HOME_PATH/set_env.sh"
         exec bash build.sh
-    ' 2>&1 | tee "$submission/_compile.log"
+    '
 
-printf '[PASS] Build completed. Log: %s\n' "$submission/_compile.log"
+printf '[PASS] Build completed.\n'
