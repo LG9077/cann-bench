@@ -71,6 +71,8 @@ PLATFORM_ALIAS: Dict[str, str] = {
     "Ascend910_9361": "910b1",
     "Ascend910B1": "910b1",
     "910b1": "910b1",
+    # 910C (Atlas A3)
+    "Ascend910_9382": "910c",
     # 310P (Atlas 推理卡) — key 是前缀，子型号由 resolve_hardware 前缀匹配
     "Ascend310P": "310p",
     "310p": "310p",

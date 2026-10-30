@@ -40,6 +40,7 @@ class TestResolveHardware:
         assert resolve_hardware("Ascend910_9362") == "910b2"
         assert resolve_hardware("Ascend910B2") == "910b2"
         assert resolve_hardware("Atlas-A2") == "910b2"
+        assert resolve_hardware("Ascend910_9382") == "910c"
 
     def test_prefix_match(self):
         """前缀匹配"""
@@ -92,7 +93,7 @@ class TestPlatformAlias:
     def test_all_values_are_logical_names(self):
         """所有值是逻辑名"""
         for key, value in PLATFORM_ALIAS.items():
-            assert value in ("910b2", "910b1", "310p", "950pr", "950dt")
+            assert value in ("910b2", "910b1", "910c", "310p", "950pr", "950dt")
 
 
 class TestDefaultHardware:

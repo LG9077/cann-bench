@@ -1,0 +1,14 @@
+**
+!requirements.txt
+!src/
+!src/cann_bench_utils/
+!src/cann_bench_utils/**
+!ascopt_integration/
+!ascopt_integration/msprof/
+!ascopt_integration/msprof/**
+**/__pycache__/
+**/*.py[cod]
+**/build/
+**/dist/
+**/*.egg-info/
+**/*.so
