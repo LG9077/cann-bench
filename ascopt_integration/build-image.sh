@@ -2,7 +2,7 @@
 set -e -o pipefail
 
 repo=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
-image=cannbench:9.1.0-a3
+image=cannbench:9.2.0-a3
 platform=$(docker info --format '{{.OSType}}/{{.Architecture}}')
 case "$platform" in
     linux/aarch64|linux/arm64) ;;

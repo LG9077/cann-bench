@@ -204,6 +204,7 @@ def kernel(spec):
     names = [field["name"] for field in spec["inputs"] + spec["outputs"]]
     args = ", ".join("GM_ADDR " + name for name in [*names, "workspace", "tiling"])
     namespace = spec['custom'] + "Kernel"
+    key_macro = spec["id"].upper() + "_TILING_KEY"
     call_names = ", ".join(names)
     header = f'''#pragma once
 #include "kernel_operator.h"
@@ -212,7 +213,7 @@ def kernel(spec):
 
 namespace {namespace} {{
 // TODO: implement {spec['name']} on the NPU. No reference or placeholder values are computed.
-__aicore__ inline void Compute({', '.join('GM_ADDR ' + name for name in names)}, const Tiling& data) {{
+__aicore__ inline void Compute({', '.join('GM_ADDR ' + name for name in names)}, const Tiling& tilingData) {{
 }}
 }}
 '''
@@ -221,9 +222,9 @@ using {namespace}::Tiling;
 
 extern "C" __global__ __aicore__ void {spec['id']}_custom({args}) {{
     REGISTER_TILING_DEFAULT(Tiling);
-    GET_TILING_DATA_WITH_STRUCT(Tiling, data, tiling);
-    if (TILING_KEY_IS({namespace}::kTilingKey)) {{
-        {namespace}::Compute({call_names}, data);
+    GET_TILING_DATA_WITH_STRUCT(Tiling, tilingData, tiling);
+    if (TILING_KEY_IS({key_macro})) {{
+        {namespace}::Compute({call_names}, tilingData);
     }}
 }}
 '''
@@ -235,7 +236,8 @@ struct Tiling {{
 }};
 }}
 '''
-    key = f"#pragma once\n#include <cstdint>\nnamespace {namespace} {{ constexpr uint64_t kTilingKey = 0; }}\n"
+    # CANN extracts Tiling keys before C++ symbol resolution.
+    key = f"#pragma once\n#define {key_macro} 0\n"
     return {f"{spec['id']}.h": header, f"{spec['id']}_kernel.cpp": entry,
             f"{spec['id']}_tiling_data.h": tiling, f"{spec['id']}_tiling_key.h": key}
 

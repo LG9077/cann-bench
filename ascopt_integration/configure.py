@@ -73,7 +73,7 @@ def configure(repo, work_dir, replace=False):
                           "env": {"PYTHONPATH": "/workspace/src", "PYTHONNOUSERSITE": "1", "CANN_BENCH_OPERATORS": name},
                           "timeout_s": timeout, "npu_count": count})
         docker = copy.deepcopy(prior.get("docker", {}))
-        docker.update(image="cannbench:9.1.0-a3", shm_size="2g",
+        docker.update(image="cannbench:9.2.0-a3", shm_size="2g",
                       startup_command="", startup_timeout_s=None,
                       startup_npu_count=0, startup_as_root=True)
         docker.setdefault("environment", {}).update(

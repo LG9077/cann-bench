@@ -1,4 +1,4 @@
-FROM quay.io/ascend/cann:9.1.0-a3-ubuntu22.04-py3.12-devel
+FROM quay.io/ascend/cann:9.2.0-a3-ubuntu22.04-py3.12-devel
 
 USER root
 SHELL ["/bin/bash", "-e", "-o", "pipefail", "-c"]
