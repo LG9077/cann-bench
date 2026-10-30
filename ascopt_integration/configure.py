@@ -102,8 +102,10 @@ def configure(repo, work_dir, replace=False):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--repo", type=Path, required=True)
-    parser.add_argument("--work-dir", type=Path, required=True, help="Directory for backups and the configuration copy")
+    parser.add_argument("--repo", type=Path, default=Path.cwd(), help="Default: current directory")
+    parser.add_argument("--work-dir", type=Path, help="Directory for backups and the configuration copy; default: <repo>/../cannbench-work")
     parser.add_argument("--replace-config", action="store_true")
     args = parser.parse_args()
-    configure(args.repo.resolve(), args.work_dir.resolve(), args.replace_config)
+    repo = args.repo.resolve()
+    work_dir = (args.work_dir or repo.parent / "cannbench-work").resolve()
+    configure(repo, work_dir, args.replace_config)

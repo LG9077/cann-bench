@@ -427,8 +427,8 @@ def export_zip(root, names, destination):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("action", choices=("generate", "add", "export"))
-    parser.add_argument("--repo", type=Path, required=True)
+    parser.add_argument("action", nargs="?", default="generate", choices=("generate", "add", "export"))
+    parser.add_argument("--repo", type=Path, default=Path.cwd(), help="Default: current directory")
     parser.add_argument("--submission", type=Path, help="Default: <repo>/submission")
     parser.add_argument("--operators", nargs="+")
     parser.add_argument("--proto", type=Path, help="Official proto.yaml for add")
