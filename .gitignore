@@ -110,7 +110,3 @@ pre-commit_reports/
 
 # 评测日志（run_evaluation 产出）
 _compile.log
-
-# Generated Ascopt project files
-/.ascopt/
-/submission/
