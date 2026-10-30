@@ -12,7 +12,7 @@ from .generate import BY_NAME, TEMPLATES, spec_for, write
 
 def prompt(spec):
     name = spec["id"]
-    return f'''You are an Ascend C operator development engineer. Your task is to implement and optimize {spec['name']} for CANN 9.1.0 on Ascend 910_93.
+    return f'''You are an Ascend C operator development engineer. Your task is to implement and optimize {spec['name']} for CANN 9.2.0 on Ascend 910_93.
 
 Working directory: /workspace
 ACLNN project: /workspace/submission
