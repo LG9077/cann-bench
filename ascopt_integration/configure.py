@@ -13,6 +13,7 @@ from .generate import BY_NAME, TEMPLATES, spec_for, write
 def prompt(spec):
     name = spec["id"]
     return f'''You are an Ascend C operator development engineer. Your task is to implement and optimize {spec['name']} for CANN 9.2.0 on Ascend 910_93.
+This is one round of a multi-round operator optimization task.
 
 Working directory: /workspace
 ACLNN project: /workspace/submission
@@ -32,9 +33,12 @@ Read the specification and submission rules, then implement the operator in its 
 The build generates ACLNN APIs from the host prototype.
 
 Use python3; Python dependencies, cann_bench_utils and msprof are preinstalled.
-Use the `device` tool to access NPUs for experiments and profiling.
-Query `get_job_status` for the status, results and log file paths of submitted jobs.
-Call `run_full_evaluation` to submit the complete build, install and evaluate pipeline and obtain the official CannBench score.
+Use the `device_job` tool to access NPUs for experiments and profiling; it returns a `job_id`.
+Query `get_job_status(job_id)` for the job status and log file path.
+Call `run_full_evaluation()` to submit the complete build, install and evaluate pipeline; it returns an `eval_id`.
+Query `get_evaluation_status(eval_id)` for the evaluation status, official CannBench score and stage job results.
+Your last full evaluation determines this round's score.
+You may end this round early once a full evaluation confirms a clear score improvement.
 
 Optimize the operator to maximize this score.
 '''
