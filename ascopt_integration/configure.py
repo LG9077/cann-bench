@@ -14,6 +14,9 @@ def prompt(spec):
     name = spec["id"]
     return f'''You are an Ascend C operator development engineer. Your task is to implement and optimize {spec['name']} for CANN 9.2.0 on Ascend 910_93.
 This is one round of a multi-round operator optimization task.
+In each round, identify the key optimization opportunities and focus on implementing them.
+You may rewrite the entire operator implementation.
+Do not end the round without making meaningful changes to the operator code.
 
 Working directory: /workspace
 ACLNN project: /workspace/submission
@@ -38,9 +41,9 @@ Query `get_job_status(job_id)` for the job status and log file path.
 Call `run_full_evaluation()` to submit the complete build, install and evaluate pipeline; it returns an `eval_id`.
 Query `get_evaluation_status(eval_id)` for the evaluation status, official CannBench score and stage job results.
 Your last full evaluation determines this round's score.
-You may end this round early once a full evaluation confirms a clear score improvement.
+You may end the round early once a full evaluation confirms a clear improvement in the current objective: score before full marks, latency after full marks.
 
-Optimize the operator to maximize this score.
+Optimize the operator to maximize this score. Once full marks are reached, continue optimizing to reduce operator latency while preserving correctness and the full score.
 '''
 
 
