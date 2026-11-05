@@ -41,7 +41,7 @@ Query `get_job_status(job_id)` for the job status and log file path.
 Call `run_full_evaluation()` to submit the complete build, install and evaluate pipeline; it returns an `eval_id`.
 Query `get_evaluation_status(eval_id)` for the evaluation status, official CannBench score and stage job results.
 Your last full evaluation determines this round's score.
-You may end the round early once a full evaluation confirms a clear improvement in the current objective: score before full marks, latency after full marks.
+You may end this round early once a full evaluation confirms a clear score improvement.
 
 Optimize the operator to maximize this score. Once full marks are reached, continue optimizing to reduce operator latency while preserving correctness and the full score.
 '''
